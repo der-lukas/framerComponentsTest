@@ -11,6 +11,21 @@ For production use, load the module like this:
 
 ###
 
+# testDrive loader
+td = "testDrive.js"
+source = "https://raw.githubusercontent.com/marckrenn/framer-testDrive/master/td.coffee"
+
+if localStorage.getItem(td)?
+	eval(localStorage.getItem(td))
+else
+	Utils.domLoadData source, (err, module) ->
+		js = CoffeeScript.compile(module, bare: true)
+		localStorage.setItem(td, js)
+		location.reload()
+
+# Load Symbols Module
+testDrive.module "symbols"
+
 # Symbols
 
 #Toggle

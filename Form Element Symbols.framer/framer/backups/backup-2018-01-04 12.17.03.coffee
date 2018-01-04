@@ -11,6 +11,21 @@ For production use, load the module like this:
 
 ###
 
+# testDrive loader
+td = "testDrive.js"
+source = "https://raw.githubusercontent.com/marckrenn/framer-testDrive/master/td.coffee"
+
+if localStorage.getItem(td)?
+	eval(localStorage.getItem(td))
+else
+	Utils.domLoadData source, (err, module) ->
+		js = CoffeeScript.compile(module, bare: true)
+		localStorage.setItem(td, js)
+		location.reload()
+
+# Load Symbols Module
+testDrive.module "symbols"
+
 # Symbols
 
 #Toggle
@@ -26,10 +41,14 @@ toggleStates =
 			curve: Spring(damping: 1)
 			time: 0.7
 
-toggleEvents = 
-	"Click": -> @.stateCycle()
+Toggle = new Symbol(toggle_default, toggleStates)
 
-Toggle = new Symbol(toggle_default, toggleStates, toggleEvents)
+toggle = new Toggle
+	parent: togglesContainer
+	x: Align.center
+
+toggle.onClick ->
+	@.stateCycle()
 
 # Checkbox
 checkboxStates =
@@ -44,10 +63,14 @@ checkboxStates =
 			curve: Spring(damping: 1)
 			time: 0.5
 
-checkboxEvents =
-	"Click": -> @.stateCycle()
+Checkbox = new Symbol(checkbox_default, checkboxStates)
 
-Checkbox = new Symbol(checkbox_default, checkboxStates, checkboxEvents)
+checkbox = new Checkbox
+	parent: checkboxContainer
+	x: Align.center
+
+checkbox.onClick ->
+	@.stateCycle()
 
 # Button
 buttonStates =
@@ -62,8 +85,18 @@ buttonStates =
 			curve: Spring(damping: 0.5)
 			time: 0.5
 
-buttonEvents =
-	"TapStart": -> @.stateCycle "pressed"
-	"TapEnd": -> @.stateCycle "default"
+buttonEvents 
 
-Button = new Symbol(button_default, buttonStates, buttonEvents)
+Button = new Symbol(button_default, buttonStates)
+
+button = new Button
+	parent: buttonContainer
+	x: Align.center
+
+button.label.template = "Submit"
+
+button.onTapStart ->
+	@.stateCycle "pressed"
+
+button.onTapEnd ->
+	@.stateCycle "default"
