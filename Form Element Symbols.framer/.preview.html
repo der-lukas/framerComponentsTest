@@ -32,7 +32,7 @@
 		<script src="framer/framer.generated.js?nocache=0ca4442d33090c3340026dd908ea4df9"></script>
 		<script src="framer/framer.modules.js?nocache=0eb2a21c7ad38d7168f5d6a26245d49f"></script>
 		<script src="framer/framer.vekter.js"></script>
-		<script>document.addEventListener("DOMContentLoaded", function() {window.__framerClientCodeId = 189;window.__framerNew = function (n,loc,th,i){if (i == null) { return i };i.__framerInstanceInfo = _.defaults({name:n,location:loc,hash:th},i.__framerInstanceInfo);_.defaults(i.__framerInstanceInfo,{name:"Untitled"});return i;};
+		<script>document.addEventListener("DOMContentLoaded", function() {window.__framerClientCodeId = 191;window.__framerNew = function (n,loc,th,i){if (i == null) { return i };i.__framerInstanceInfo = _.defaults({name:n,location:loc,hash:th},i.__framerInstanceInfo);_.defaults(i.__framerInstanceInfo,{name:"Untitled"});return i;};
 /*
 
 In this demo I'm loading the Symbol-Module via Marc Krenns testDrive-snippet (https://github.com/marckrenn/framer-testDrive)
@@ -46,7 +46,26 @@ For production use, load the module like this:
  */
 
 (function() {
-  var Button, Checkbox, Toggle, buttonEvents, buttonStates, checkboxEvents, checkboxStates, toggleEvents, toggleStates;
+  var Button, Checkbox, Toggle, buttonEvents, buttonStates, checkboxEvents, checkboxStates, source, td, toggleEvents, toggleStates;
+
+  td = "testDrive.js";
+
+  source = "https://raw.githubusercontent.com/marckrenn/framer-testDrive/master/td.coffee";
+
+  if (localStorage.getItem(td) != null) {
+    eval(localStorage.getItem(td));
+  } else {
+    Utils.domLoadData(source, function(err, module) {
+      var js;
+      js = CoffeeScript.compile(module, {
+        bare: true
+      });
+      localStorage.setItem(td, js);
+      return location.reload();
+    });
+  }
+
+  testDrive.module("symbols");
 
   toggleStates = {
     active: {
@@ -75,7 +94,7 @@ For production use, load the module like this:
     }
   };
 
-  Toggle = window.__framerNew("Toggle", "31:13-31:62", "?",new Symbol(toggle_default, toggleStates, toggleEvents));
+  Toggle = window.__framerNew("Toggle", "46:13-46:62", "?",new Symbol(toggle_default, toggleStates, toggleEvents));
 
   checkboxStates = {
     "default": {
@@ -104,7 +123,7 @@ For production use, load the module like this:
     }
   };
 
-  Checkbox = window.__framerNew("Checkbox", "49:15-49:70", "?",new Symbol(checkbox_default, checkboxStates, checkboxEvents));
+  Checkbox = window.__framerNew("Checkbox", "64:15-64:70", "?",new Symbol(checkbox_default, checkboxStates, checkboxEvents));
 
   buttonStates = {
     "default": {
@@ -136,7 +155,7 @@ For production use, load the module like this:
     }
   };
 
-  Button = window.__framerNew("Button", "68:13-68:62", "?",new Symbol(button_default, buttonStates, buttonEvents));
+  Button = window.__framerNew("Button", "83:13-83:62", "?",new Symbol(button_default, buttonStates, buttonEvents));
 
 }).call(this);
 })</script>
