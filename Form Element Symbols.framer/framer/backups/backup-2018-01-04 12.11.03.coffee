@@ -9,8 +9,6 @@ For production use, load the module like this:
 2) Require the Symbol-module in your project:
    {Symbol} = require 'Symbol'
 
-###
-
 # Symbols
 
 #Toggle
@@ -28,6 +26,13 @@ toggleStates =
 
 Toggle = new Symbol(toggle_default, toggleStates)
 
+toggle = new Toggle
+	parent: togglesContainer
+	x: Align.center
+
+toggle.onClick ->
+	@.stateCycle()
+
 # Checkbox
 checkboxStates =
 	default:
@@ -43,6 +48,13 @@ checkboxStates =
 
 Checkbox = new Symbol(checkbox_default, checkboxStates)
 
+checkbox = new Checkbox
+	parent: checkboxContainer
+	x: Align.center
+
+checkbox.onClick ->
+	@.stateCycle()
+
 # Button
 buttonStates =
 	default:
@@ -57,3 +69,15 @@ buttonStates =
 			time: 0.5
 
 Button = new Symbol(button_default, buttonStates)
+
+button = new Button
+	parent: buttonContainer
+	x: Align.center
+
+button.label.template = "Submit"
+
+button.onTapStart ->
+	@.stateCycle "pressed"
+
+button.onTapEnd ->
+	@.stateCycle "default"
