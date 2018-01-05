@@ -1,32 +1,18 @@
-###
-
-In this demo I'm loading the Symbol-Module via Marc Krenns testDrive-snippet (https://github.com/marckrenn/framer-testDrive)
-
-For production use, load the module like this:
-
-1) Download and copy Symbol.coffee in your project's /modules-folder. (https://github.com/der-lukas/framer-Symbols)
-
-2) Require the Symbol-module in your project:
-   {Symbol} = require 'Symbol'
-
-###
-
 # testDrive loader
-td = "testDrive.js"
-source = "https://raw.githubusercontent.com/marckrenn/framer-testDrive/master/td.coffee"
+# td = "testDrive.js"
+# source = "https://raw.githubusercontent.com/marckrenn/framer-testDrive/master/td.coffee"
+# 
+# if localStorage.getItem(td)?
+# 	eval(localStorage.getItem(td))
+# else
+# 	Utils.domLoadData source, (err, module) ->
+# 		js = CoffeeScript.compile(module, bare: true)
+# 		localStorage.setItem(td, js)
+# 		location.reload()
+# 
+# # Load Symbols Module
+# testDrive.module "symbols"
 
-if localStorage.getItem(td)?
-	eval(localStorage.getItem(td))
-else
-	Utils.domLoadData source, (err, module) ->
-		js = CoffeeScript.compile(module, bare: true)
-		localStorage.setItem(td, js)
-		location.reload()
-
-# Load Symbols Module
-testDrive.module "symbols"
-
-# Symbols
 
 #Toggle
 toggleStates =
